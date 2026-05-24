@@ -1,0 +1,133 @@
+{
+  "_meta": {
+    "project": "marketing_astica",
+    "version": "1.0",
+    "updated": "2026-05-24",
+    "note": "Google Sheet 컬럼 정의. GAS가 이 파일을 참조해 컬럼 인덱스를 처리. Supabase 이관 시 동일 필드명 사용."
+  },
+  "files": {
+    "Marketing_RawData": {
+      "tabs": {
+        "RAW_STATIC": {
+          "columns": ["raw_id","source_type","source_name","source_url","market","language","raw_text","concern_keyword","status","created_at","processed_at","notes"],
+          "enums": {
+            "source_type": ["VOC","REVIEW","MANUAL","QA"],
+            "status": ["RAW","PROCESSING","CLEAN","SKIP"]
+          }
+        },
+        "RAW_REDDIT": {
+          "columns": ["raw_id","source_type","subreddit","post_title","post_body","top_comment","score","num_comments","post_url","collected_at","status"],
+          "enums": {
+            "source_type": ["REDDIT"],
+            "status": ["RAW","PROCESSING","CLEAN","SKIP"]
+          }
+        },
+        "RAW_REVIEWS_QA": {
+          "columns": ["raw_id","source_type","platform","product_name","rating","review_text","review_url","collected_at","status"],
+          "enums": {
+            "source_type": ["REVIEW","QA"],
+            "platform": ["Reddit","Quora","Amazon","YouTube","Other"],
+            "status": ["RAW","PROCESSING","CLEAN","SKIP"]
+          }
+        },
+        "RAW_TRENDS": {
+          "columns": ["raw_id","platform","keyword","trend_score","related_terms","region","collected_at"],
+          "enums": {
+            "platform": ["GoogleTrends","TikTok","Pinterest","YouTube","X"]
+          }
+        },
+        "RAW_SEASON": {
+          "columns": ["raw_id","season_tag","topic","relevance_note","start_date","end_date"]
+        },
+        "RAW_COMPETITORS": {
+          "columns": ["raw_id","competitor_name","channel","post_url","caption_text","hashtags","format_type","tone_note","likes","collected_at"],
+          "enums": {
+            "channel": ["INSTAGRAM","TIKTOK","THREADS","X","PINTEREST","FACEBOOK","YOUTUBE"],
+            "format_type": ["REEL","CARD","STATIC","THREAD","SHORT"]
+          }
+        },
+        "99_IMPORT_LOG": {
+          "columns": ["log_id","run_at","source_type","records_added","records_skipped","error_msg"]
+        }
+      }
+    },
+    "Marketing_Engine": {
+      "tabs": {
+        "CLEAN_MASTER": {
+          "columns": ["clean_id","raw_id","source_type","clean_text","concern_type","symptom_pattern","treatment_history","failure_signal","confusion_type","duration","emotion","astica_fit","next_step_signal","funnel_stage","voc_hook","compliance_risk","compliance_note","status","classified_at","classifier_version"],
+          "enums": {
+            "concern_type": ["UNCLEAR","ACNE","FUNGAL_ACNE","MIXED","OTHER"],
+            "failure_signal": ["LOOP","TREATMENT_FAILURE","MISDIAGNOSIS","MULTIPLE_DOCTORS","NONE"],
+            "confusion_type": ["UNKNOWN_CONDITION","TREATMENT_MISMATCH","FUNGAL_SUSPICION","NONE"],
+            "duration": ["CHRONIC (1yr+)","SUBACUTE (1-12mo)","ACUTE (<1mo)","UNKNOWN"],
+            "emotion": ["HOPELESS","FRUSTRATED","CONFUSED","HOPEFUL","NEUTRAL"],
+            "astica_fit": ["HIGH","MEDIUM","LOW"],
+            "next_step_signal": ["SEEKING","NOT_YET","RESIGNED"],
+            "funnel_stage": ["AWARENESS","CONSIDERATION","INTENT"],
+            "compliance_risk": ["HIGH","MEDIUM","LOW"],
+            "status": ["RAW","CLEAN","USED","SKIP"]
+          }
+        },
+        "HARNESS": {
+          "columns": ["harness_id","harness_name","version","target","system_prompt","user_prompt_template","output_format","model","max_tokens","is_active","updated_at","notes"],
+          "enums": {
+            "target": ["CLASSIFY","GENERATE_CARD","GENERATE_REEL","AD_HOOK"],
+            "output_format": ["JSON","TEXT"],
+            "model": ["claude-sonnet-4-6","claude-haiku-4-5-20251001"],
+            "is_active": ["TRUE","FALSE"]
+          }
+        },
+        "FORMAT_REF": {
+          "columns": ["format_id","channel","format_type","duration_sec","slide_count","structure_json","tone","text_style","ref_source","analyzed_by","created_at"],
+          "enums": {
+            "channel": ["INSTAGRAM_REEL","INSTAGRAM_CARD","TIKTOK","THREADS","X","PINTEREST","FACEBOOK"],
+            "analyzed_by": ["gpt-4o","manual"]
+          }
+        },
+        "CONTENT_ANGLES": {
+          "columns": ["angle_id","clean_id","content_pillar","angle_title","angle_body","target_channel","format_id","ad_potential","status","created_at"],
+          "enums": {
+            "content_pillar": ["EDUCATION","EMPATHY","CTA","PROOF"],
+            "target_channel": ["INSTAGRAM_REEL","INSTAGRAM_CARD","TIKTOK","THREADS","X","PINTEREST"],
+            "ad_potential": ["HIGH","MEDIUM","LOW"],
+            "status": ["DRAFT","APPROVED","REJECTED","USED"]
+          }
+        },
+        "AD_HOOKS": {
+          "columns": ["hook_id","clean_id","hook_text","variation_1","variation_2","variation_3","target_channel","compliance_risk","status","created_at"],
+          "enums": {
+            "target_channel": ["META","TIKTOK","PINTEREST","X"],
+            "compliance_risk": ["HIGH","MEDIUM","LOW"],
+            "status": ["DRAFT","APPROVED","REJECTED","USED"]
+          }
+        },
+        "WEEKLY_BRIEF": {
+          "columns": ["brief_id","week_start","top_concern_types","top_emotions","top_failure_signals","recommended_angles","ad_candidates","notes","created_at"]
+        },
+        "NOTION_EXPORT": {
+          "columns": ["export_id","source_type","source_id","notion_page_id","exported_at","status"],
+          "enums": {
+            "source_type": ["CONTENT_ANGLE","AD_HOOK","WEEKLY_BRIEF"],
+            "status": ["SENT","APPROVED","REJECTED"]
+          }
+        },
+        "99_FLOW_CONTROL": {
+          "columns": ["key","value","notes"],
+          "initial_rows": [
+            ["last_classify_run", "", "마지막 분류 실행 시각"],
+            ["last_generate_run", "", "마지막 생성 실행 시각"],
+            ["batch_size", "20", "1회 API 배치 크기"],
+            ["active_harness_version", "3.0", "현재 활성 하네스 버전"],
+            ["notion_db_id", "", "Notion DB ID"]
+          ]
+        },
+        "99_ERROR_LOG": {
+          "columns": ["error_id","run_at","function_name","input_id","error_msg","resolved"],
+          "enums": {
+            "resolved": ["TRUE","FALSE"]
+          }
+        }
+      }
+    }
+  }
+}

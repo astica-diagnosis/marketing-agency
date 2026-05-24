@@ -1,0 +1,84 @@
+{
+  "_meta": {
+    "harness": "classify_v3",
+    "updated": "2026-05-24",
+    "total": 10,
+    "pass_criteria": {
+      "HIGH_cases": ["R-01","R-02","R-03","R-04","R-05","K-01","K-02","K-03"],
+      "LOW_cases": ["EDGE-01"],
+      "LOW_or_MEDIUM_cases": ["EDGE-02"]
+    }
+  },
+  "cases": [
+    {
+      "id": "R-01",
+      "label": "LOOP + HOPELESS — Reddit top ENG 112",
+      "source": "r/Fungalacne",
+      "expected": { "failure_signal": "LOOP", "confusion_type": "UNKNOWN_CONDITION", "astica_fit": "HIGH", "emotion": "HOPELESS" },
+      "text": "5 years of this. Tried everything ivermectin, zero therapy, anti dandruff shampoos bha you name it, dont even know if its fungal rosacea or something entirely different, help, it manifests as little uniform whiteheads that pop easily but leave a red mark for months, all over chin cheeks sometimes forehead and nose"
+    },
+    {
+      "id": "R-02",
+      "label": "LOOP + SEEKING — Reddit top ENG 95",
+      "source": "r/Fungalacne",
+      "expected": { "failure_signal": "LOOP", "astica_fit": "HIGH", "next_step_signal": "SEEKING" },
+      "text": "What's left for me to try? Feeling hopeless. I have done two rounds of fluconazole and it pretty much cleared it but it came back aggressively. Tried ketoconazole, nizoral, selsun blue, benzoyl peroxide, nothing sticks. What am I supposed to do now?"
+    },
+    {
+      "id": "R-03",
+      "label": "LOOP + UNKNOWN — WHOLE LIFE pattern",
+      "source": "r/Fungalacne",
+      "expected": { "failure_signal": "LOOP", "confusion_type": "UNKNOWN_CONDITION", "astica_fit": "HIGH", "emotion": "FRUSTRATED" },
+      "text": "My WHOLE LIFE ive dealt with this annoying spot-non spot texture. It looks horrible under makeup and sometimes spreads to the rest of my face. I cant find my type of acne online, you cant actually feel the bumps majority of the time. PLEASE HELP! IM TIRED"
+    },
+    {
+      "id": "R-04",
+      "label": "MULTIPLE_DOCTORS + 6 treatments failed → LOOP",
+      "source": "r/Fungalacne",
+      "expected": { "failure_signal": "LOOP", "astica_fit": "HIGH" },
+      "text": "I have had bumps on my forehead and hairline area that haven't gone away completely since 2023. One dermatologist said it was folliculitis and another one said it was comedones. I have tried soolantra, tretinoin, clindamycin, cabtreo, PanOxyl, sulfur but none of them worked."
+    },
+    {
+      "id": "R-05",
+      "label": "UNKNOWN_CONDITION + no treatment history",
+      "source": "r/Fungalacne",
+      "expected": { "confusion_type": "UNKNOWN_CONDITION", "astica_fit": "HIGH" },
+      "text": "I'm a 33F and have never had issues with my skin. I have been dealing with this break out on my neck and chest since late March, and I am miserable. I have scoured the internet and can't seem to find any pictures that match the current state of my skin. I don't know what's going on. Is this fungal acne? Is this rosacea? Nobody can tell me."
+    },
+    {
+      "id": "K-01",
+      "label": "Korean VOC — MISDIAGNOSIS → HIGH",
+      "source": "네이버 카페 빨강얼굴",
+      "expected": { "failure_signal": "MISDIAGNOSIS", "astica_fit": "HIGH" },
+      "text": "단순포진을 모낭염으로 오진단 받아서 큰일날뻔했어요. 하루 먹고났는데 그 다음날 점점 번지고 있어서 다른 병원을 갔더니 모낭염 아니고 단순포진이라고 하네요. 혹시 모낭염진단받고 약먹어도 안나으면 다른 병원가보세요."
+    },
+    {
+      "id": "K-02",
+      "label": "Korean VOC — LOOP + UNKNOWN",
+      "source": "네이버 카페 빨강얼굴",
+      "expected": { "failure_signal": "LOOP", "confusion_type": "UNKNOWN_CONDITION", "astica_fit": "HIGH" },
+      "text": "항생제 항진균제 8일차인데 왜 안나을까요. 독시+씨플루코, 케토코나졸+크레오신티 8일째인데 죽고싶네요. 원인을 모르겠어요. 어디 가야하는지도 모르겠고 뭘 더 해야하는지 모르겠어요."
+    },
+    {
+      "id": "K-03",
+      "label": "Korean VOC — CONFUSED + SEEKING",
+      "source": "네이버 카페 빨강얼굴",
+      "expected": { "confusion_type": "UNKNOWN_CONDITION", "astica_fit": "HIGH", "next_step_signal": "SEEKING" },
+      "text": "이거 구진성 여드름일까요 모낭염일까요. 어제까지 누르면 살짝 통증 있다가 지금은 거의 없는데요. GPT는 모낭염보다는 구진성 여드름 같다는데 워낙에 모낭염이 많이 나서 생긴것도 헷갈리네요. 병원가봐야하나요."
+    },
+    {
+      "id": "EDGE-01",
+      "label": "LOW fit — product advice only",
+      "source": "r/Fungalacne",
+      "expected": { "astica_fit": "LOW", "next_step_signal": "NOT_YET" },
+      "text": "My fungal acne is well controlled. I've been strictly using fungal acne safe products for 5 years. Looking for a good FA safe moisturizer for night, something calming and hydrating."
+    },
+    {
+      "id": "EDGE-02",
+      "label": "HOPEFUL — new routine working",
+      "source": "r/Fungalacne",
+      "expected": { "astica_fit": "LOW", "emotion": "HOPEFUL" },
+      "text": "I developed FA after antibiotics following surgery. It's been a brutal journey but I finally found a routine that's working! Ciclopirox shampoo + Vanicream + no oils. Two weeks in and the bumps are almost gone. So relieved."
+    }
+  ]
+}
