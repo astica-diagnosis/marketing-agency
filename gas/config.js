@@ -15,15 +15,15 @@ const CONFIG = {
   // 같은 스프레드시트 안에 모든 탭이 있다고 가정합니다.
   // RawData / Engine을 별도 파일로 운영하면 SpreadsheetApp.openById로 분리하세요.
 
-  // ── 탭 이름 ──
+  // ── 탭 이름 ── (실제 시트 탭 이름과 일치)
   SHEETS: {
-    CLEAN_MASTER:   '01_CLEAN_MASTER',   // classify 결과 (생성 입력원)
-    THREADS_OUTPUT: '03_THREADS_OUTPUT', // 생성 결과 저장
-    HARNESS:        'HARNESS',           // 하네스 보관 (PROMPT_LIBRARY 대체)
-    BANNED_TERMS:   'BANNED_TERMS',      // 금지어
-    CONFIG:         'CONFIG',            // 운영 설정
-    RUN_LOG:        '92_RUN_LOG',        // 실행 로그
-    ERROR_LOG:      '93_ERROR_LOG'       // 에러 로그
+    CLEAN_MASTER:   'CLEAN_MASTER',     // classify 결과 (생성 입력원)
+    THREADS_OUTPUT: 'THREADS_OUTPUT',   // 생성 결과 저장
+    HARNESS:        'HARNESS',          // 하네스 보관
+    BANNED_TERMS:   'BANNED_TERMS',     // 금지어
+    CONFIG:         'CONFIG',           // 운영 설정
+    RUN_LOG:        'RUN_LOG',          // 실행 로그
+    ERROR_LOG:      '99_ERROR_LOG'      // 에러 로그 (기존 탭 사용)
   },
 
   // ── 상태값 ──

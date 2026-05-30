@@ -118,12 +118,14 @@ function logRun_(funcName, processed, skipped, note) {
   } catch (e) { /* 로깅 실패는 무시 */ }
 }
 
-/** ERROR_LOG 기록 */
+/** ERROR_LOG 기록 (컬럼: error_id, run_at, function_name, input_id, error_msg, resolved) */
 function logError_(funcName, inputId, errorMsg) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = ss.getSheetByName(CONFIG.SHEETS.ERROR_LOG);
     if (!sheet) return;
-    sheet.appendRow([nowStr_(), funcName, inputId || '', String(errorMsg)]);
+    const existing = sheet.getDataRange().getValues().map(function (r) { return r[0]; });
+    const errId = makeNextId_('ERR', existing);
+    sheet.appendRow([errId, nowStr_(), funcName, inputId || '', String(errorMsg), 'FALSE']);
   } catch (e) { /* 로깅 실패는 무시 */ }
 }
